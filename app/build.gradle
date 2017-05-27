@@ -1,4 +1,17 @@
 apply plugin: 'com.android.application'
+apply plugin:'com.hypers.GreetingTask'
+
+buildscript {
+    repositories {
+        maven {
+            url uri('../repo') //插件所在的目录
+        }
+    }
+
+    dependencies {
+        classpath 'com.hypers:GreetingTask:0.1' //添加依赖
+    }
+}
 
 android {
     compileSdkVersion 25
