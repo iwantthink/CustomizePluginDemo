@@ -3,10 +3,11 @@ package com.hypers
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-class GreetingTask implements Plugin<Project> {
+class GreetingPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
+        project.extensions.create('greetingExt', GreetingPluginExtension)
         project.task('sayHi') {
             group 'hypers'
             doLast {
@@ -17,3 +18,6 @@ class GreetingTask implements Plugin<Project> {
     }
 }
 
+class GreetingPluginExtension {
+    String message = 'HHHHHH from extension'
+}
