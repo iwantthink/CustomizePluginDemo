@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin:'com.hypers.GreetingTask'
+apply plugin: 'com.hypers.GreetingPlugin'
 
 buildscript {
     repositories {
@@ -9,8 +9,13 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.hypers:GreetingTask:0.1' //添加依赖
+        classpath 'com.hypers:GreetingPlugin:0.3' //添加依赖
     }
+
+//    greetingExt{
+//        message 'from app'
+//    }
+
 }
 
 android {

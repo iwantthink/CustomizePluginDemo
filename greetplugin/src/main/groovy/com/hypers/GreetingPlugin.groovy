@@ -11,7 +11,8 @@ class GreetingPlugin implements Plugin<Project> {
         project.task('sayHi') {
             group 'hypers'
             doLast {
-                println 'hello from GreetingTask'
+                println 'hello from GreetingPlugin\n'
+                println project.greetingExt.message
             }
         }
 
