@@ -9,14 +9,31 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.hypers:GreetingPlugin:0.3' //添加依赖
+        classpath 'com.hypers:GreetingPlugin:0.7' //添加依赖
     }
 
-//    greetingExt{
-//        message 'from app'
-//    }
+}
+
+//greetingExt{
+//    message 'from app123'
+//}
+
+team {
+    Jack {
+        name = '123'
+        age = 123
+        sex = 'false'
+    }
+
+    Lucy {
+        name = '456'
+        age = 456
+        sex = 'true'
+    }
 
 }
+
+
 
 android {
     compileSdkVersion 25
