@@ -1,6 +1,5 @@
 package com.hypers
 
-import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -20,66 +19,27 @@ class GreetingPlugin implements Plugin<Project> {
 //                println teams.toString()
 //            }
 //        }
-
-
-        project.extensions.create('greetingExt', GreetingPluginExtension)
+        //接收参数
+        project.extensions.create('PluginCfg', PluginCfg)
+        //创建 task:sayHi group:hypers
         project.task('sayHi') {
             group 'hypers'
             doLast {
-                println 'hello from GreetingPlugin\n'
-                println project.greetingExt.message
+                //取参数的方式1
+                Closure cl = project['PluginCfg'].func
+                cl 'lucy'
+                println project['PluginCfg'].address
+                //去取参数的方式2
+//                project.PluginCfg.func('jack')
+//                println project.PluginCfg.address
             }
         }
 
     }
 }
 
-class GreetingPluginExtension {
-    String message = 'HHHHHH from extension'
-}
 
-class Person {
-    String name;
-    int age;
-    String sex;
-
-    public Person(String name) {
-
-    }
-
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "age=" + age +
-                ", name='" + name + '\'' +
-                ", sex='" + sex + '\'' +
-                '}';
-    }
-}
-
-class Team {
-    NamedDomainObjectContainer<Person> persons;
-
-    String name;
-
-    int count;
-
-    public Team(NamedDomainObjectContainer<Person> persons) {
-        this.persons = persons;
-    }
-
-    def persons(Closure closure) {
-        persons.configure(closure)
-    }
-
-
-    @Override
-    public String toString() {
-        return "Team{" +
-                "count=" + count +
-                ", persons=" + persons +
-                ", name='" + name + '\'' +
-                '}';
-    }
+class PluginCfg {
+    Closure func;
+    String address;
 }

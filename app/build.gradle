@@ -9,7 +9,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.hypers:GreetingPlugin:0.7' //添加依赖
+        classpath 'com.hypers:GreetingPlugin:0.9' //添加依赖
     }
 
 }
@@ -18,21 +18,12 @@ buildscript {
 //    message 'from app123'
 //}
 
-team {
-    Jack {
-        name = '123'
-        age = 123
-        sex = 'false'
+PluginCfg {
+    func {
+        println 'hello: ' + it + '?'
     }
-
-    Lucy {
-        name = '456'
-        age = 456
-        sex = 'true'
-    }
-
+    address 'shanghai'
 }
-
 
 
 android {
