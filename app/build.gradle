@@ -1,5 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.hypers.GreetingPlugin'
+gradle.taskGraph.whenReady {
+    println "when ready $it"
+}
+gradle.buildFinished {
+    println "build finished"
+}
+
+println 'app: project hashcode : ' + getProject().hashCode()
+println 'app:root project hashcode : ' + getRootProject().hashCode()
 
 buildscript {
     repositories {
@@ -45,6 +54,7 @@ android {
     }
 }
 
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -52,4 +62,10 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
+}
+
+tasks.getByName("assemble"){
+    it.doLast{
+        println "i am running after assemble"
+    }
 }

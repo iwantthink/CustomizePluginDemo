@@ -1,5 +1,16 @@
+apply 'from':rootDir.getAbsolutePath()+"/util.gradle"
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
+gradle.beforeProject {
+    println "before project $it"
+}
+println 'customizePD: project hashcode : ' + getProject().hashCode()
+println 'customizePD:root project hashcode : ' + getRootProject().hashCode()
+println "in cpd,gradle id is"+getGradle().hashCode()
+println "in cpd,gradleHomeDir is"+getGradle().getGradleHomeDir()
+println "in cpd,gradleUserHomeDir is"+getGradle().getGradleUserHomeDir()
+println "in cpd,parent is"+getGradle().getParent()
+println "$gradle.api"
+println "$gradle.hello"
 buildscript {
     repositories {
         jcenter()

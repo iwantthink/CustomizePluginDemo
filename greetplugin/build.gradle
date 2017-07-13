@@ -1,6 +1,9 @@
 apply plugin: 'groovy'
 apply from: 'upload.gradle'
 
+println 'greetplugin: project hashcode : ' + getProject().hashCode()
+println 'greetplugin: root project hashcode : ' + getRootProject().hashCode()
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile gradleApi() //gradle sdk
