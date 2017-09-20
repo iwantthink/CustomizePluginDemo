@@ -22,13 +22,16 @@ class GreetingPlugin implements Plugin<Project> {
         //接收参数
         project.extensions.create('PluginCfg', PluginCfg)
         //创建 task:sayHi group:hypers
-        project.task('sayHi') {
+        project.task('sayHello') {
             group 'hypers'
+            description 'desc'
             doLast {
-                //取参数的方式1
-                Closure cl = project['PluginCfg'].func
-                cl 'lucy'
-                println project['PluginCfg'].address
+                println project.PluginCfg.address
+                project.PluginCfg.func.call()
+//                //取参数的方式1
+//                Closure cl = project['PluginCfg'].func
+//                cl 'lucy'
+//                println project['PluginCfg'].address
                 //去取参数的方式2
 //                project.PluginCfg.func('jack')
 //                println project.PluginCfg.address

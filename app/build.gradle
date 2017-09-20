@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.hypers.GreetingPlugin'
-gradle.taskGraph.whenReady {
-    println "when ready $it"
-}
-gradle.buildFinished {
-    println "build finished"
-}
+//gradle.taskGraph.whenReady {
+//    println "when ready $it"
+//}
+//gradle.buildFinished {
+//    println "build finished"
+//}
 
-println 'app: project hashcode : ' + getProject().hashCode()
-println 'app:root project hashcode : ' + getRootProject().hashCode()
+//println 'app: project hashcode : ' + getProject().hashCode()
+//println 'app:root project hashcode : ' + getRootProject().hashCode()
 
 buildscript {
     repositories {
@@ -18,7 +18,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.hypers:GreetingPlugin:0.9' //添加依赖
+        classpath 'com.hypers:GreetingPlugin:0.2' //添加依赖
     }
 
 }
@@ -27,12 +27,15 @@ buildscript {
 //    message 'from app123'
 //}
 
-PluginCfg {
-    func {
-        println 'hello: ' + it + '?'
-    }
-    address 'shanghai'
-}
+PluginCfg.address 'shanghai'
+PluginCfg.func {println 'hello dssss'}
+
+//PluginCfg {
+//    func  {
+//        println 'hello: gradle plugin'
+//    }
+//    address 'shanghai'
+//}
 
 
 android {
