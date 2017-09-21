@@ -19,6 +19,7 @@ class GreetingPlugin implements Plugin<Project> {
 //                println teams.toString()
 //            }
 //        }
+
         //接收参数
         project.extensions.create('PluginCfg', PluginCfg)
         //创建 task:sayHi group:hypers

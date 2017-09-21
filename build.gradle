@@ -3,20 +3,13 @@ apply 'from':rootDir.getAbsolutePath()+"/util.gradle"
 gradle.beforeProject {
     println "before project $it"
 }
-println 'customizePD: project hashcode : ' + getProject().hashCode()
-println 'customizePD:root project hashcode : ' + getRootProject().hashCode()
-println "in cpd,gradle id is"+getGradle().hashCode()
-println "in cpd,gradleHomeDir is"+getGradle().getGradleHomeDir()
-println "in cpd,gradleUserHomeDir is"+getGradle().getGradleUserHomeDir()
-println "in cpd,parent is"+getGradle().getParent()
-println "$gradle.api"
-println "$gradle.hello"
+
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.3.3'
 //        classpath group: 'org.gradle', name: 'customPlugin',
 //                version: '1.0-SNAPSHOT'
         // NOTE: Do not place your application dependencies here; they belong
@@ -33,3 +26,5 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ConfigurableFileCollection

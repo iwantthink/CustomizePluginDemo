@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.hypers.GreetingPlugin'
+apply plugin: 'com.hypers.Greetplugin'
 //gradle.taskGraph.whenReady {
 //    println "when ready $it"
 //}
@@ -18,17 +18,28 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.hypers:GreetingPlugin:0.2' //添加依赖
+        classpath 'com.hypers:GreetingPlugin:0.1' //添加依赖
     }
 
 }
 
-//greetingExt{
-//    message 'from app123'
-//}
+books{
+    quickStart{
 
-PluginCfg.address 'shanghai'
-PluginCfg.func {println 'hello dssss'}
+    }
+
+    developerGuide{
+    }
+
+}
+
+
+//clickcc {
+//    message = 'what the fuck'
+//    person {
+//        name = 'ryan'
+//    }
+//}
 
 //PluginCfg {
 //    func  {
