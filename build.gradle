@@ -9,8 +9,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-//        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.3'
 //        classpath group: 'org.gradle', name: 'customPlugin',
 //                version: '1.0-SNAPSHOT'
         // NOTE: Do not place your application dependencies here; they belong
