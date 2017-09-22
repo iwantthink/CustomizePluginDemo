@@ -18,21 +18,20 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.hypers:GreetingPlugin:0.1' //添加依赖
+        classpath 'com.hypers:GreetingPlugin:0.4' //添加依赖
     }
 
 }
 
-books{
-    quickStart{
-
-    }
-
-    developerGuide{
-    }
-
-}
-
+//books {
+//    quickStart {
+//
+//    }
+//
+//    developerGuide {
+//    }
+//
+//}
 
 //clickcc {
 //    message = 'what the fuck'
@@ -66,16 +65,15 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled true
-            shrinkResources true
-
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        staging {
-
+        debug {
+            minifyEnabled false
         }
     }
 
@@ -89,6 +87,8 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
+    compile 'org.ow2.asm:asm-all:5.2'
+
 }
 
 task getReleasePsw << {
