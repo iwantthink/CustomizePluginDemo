@@ -1,5 +1,7 @@
 package com.hypers
 
+import com.android.build.api.transform.QualifiedContent
+import com.android.build.api.transform.Transform
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -17,4 +19,28 @@ public class NuwaCheckPlugin implements Plugin<Project> {
         System.err.println str
     }
 
+}
+
+class MyTransform extends Transform {
+
+
+    @Override
+    String getName() {
+        return null
+    }
+
+    @Override
+    Set<QualifiedContent.ContentType> getInputTypes() {
+        return null
+    }
+
+    @Override
+    Set<? super QualifiedContent.Scope> getScopes() {
+        return null
+    }
+
+    @Override
+    boolean isIncremental() {
+        return false
+    }
 }

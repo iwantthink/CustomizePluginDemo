@@ -18,7 +18,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.hypers:GreetingPlugin:0.4' //添加依赖
+        classpath 'com.hypers:GreetingPlugin:0.1' //添加依赖
     }
 
 }
@@ -65,7 +65,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
+        multiDexEnabled false
     }
     buildTypes {
         release {

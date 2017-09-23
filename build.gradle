@@ -7,6 +7,8 @@ gradle.beforeProject {
 buildscript {
     repositories {
         jcenter()
+        //添加国内镜像
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public'}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
@@ -20,7 +22,9 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public'}
     }
+
 }
 
 task clean(type: Delete) {
