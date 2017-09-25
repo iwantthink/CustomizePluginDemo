@@ -1,26 +1,32 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.hypers.Greetplugin'
-//gradle.taskGraph.whenReady {
-//    println "when ready $it"
-//}
-//gradle.buildFinished {
-//    println "build finished"
-//}
-
-//println 'app: project hashcode : ' + getProject().hashCode()
-//println 'app:root project hashcode : ' + getRootProject().hashCode()
 
 buildscript {
     repositories {
+        jcenter()
         maven {
             url uri('../repo') //插件所在的目录
         }
     }
 
     dependencies {
-        classpath 'com.hypers:GreetingPlugin:0.1' //添加依赖
+        classpath 'com.hypers:GreetingPlugin:0.3' //添加依赖
     }
 
+}
+
+
+repositories {
+    maven {
+        url uri('../repo')
+    }
+
+}
+
+RYAN {
+    excludeClass = [1, 2, 3]
+    includePkg = [4, 5, 6]
+    oldDir = 'xx/xx/xx'
 }
 
 //books {
@@ -111,4 +117,79 @@ tasks.getByName("assemble") {
     it.doLast {
         println "i am running after assemble"
     }
+}
+
+project.afterEvaluate {
+//    project.android.applicationVariants.findAll { variant ->
+//        def proguardTask = project.tasks.findByName("transformClassesAndResourcesWithProguardFor${variant.name.capitalize()}")
+//        if (proguardTask) {
+//            project.logger.error "proguard=>${variant.name.capitalize()}"
+//
+//            proguardTask.inputs.files.files.each { File file ->
+//                project.logger.error "file inputs=>${file.absolutePath}"
+//            }
+//
+//            proguardTask.outputs.files.files.each { File file ->
+//                project.logger.error "file outputs=>${file.absolutePath}"
+//            }
+//        }
+//
+//        def dexTask = project.tasks.findByName("transformClassesWithDexFor${variant.name.capitalize()}")
+//        if (dexTask) {
+//            project.logger.error "dex=>${variant.name.capitalize()}"
+//
+//            dexTask.inputs.files.files.each { File file ->
+//                project.logger.error "file inputs=>${file.absolutePath}"
+//            }
+//
+//            dexTask.outputs.files.files.each { File file ->
+//                project.logger.error "file outputs=>${file.absolutePath}"
+//            }
+//        }
+//    }
+
+    project.logger.error '-----------------------------------------------'
+
+//    project.android.applicationVariants.findAll { variant ->
+//        def testTask = project.tasks.findByName("transformClassesWithMyTransformFor${variant.name.capitalize()}")
+//        def proguardTask = project.tasks.findByName("transformClassesAndResourcesWithProguardFor${variant.name.capitalize()}")
+//
+//
+//        if (testTask) {
+//            Set<File> testTaskInputFiles = testTask.inputs.files.files
+//            Set<File> testTaskOutputFiles = testTask.inputs.files.files
+//
+//            project.logger.error "Name:transformClassesWithMyTransfor=====>${testTask.name} input"
+//            testTaskInputFiles.each { inputFile ->
+//                def path = inputFile.absolutePath
+//                project.logger.error "inputFilePath = $path"
+//            }
+//
+//            project.logger.error "Name:transformClassesWithMyTransform=====>${testTask.name} output"
+//            testTaskOutputFiles.each { outputFile ->
+//                def path = outputFile.absolutePath
+//                project.logger.error "outputFilePath = $path"
+//            }
+//        }
+//
+//        if (proguardTask) {
+//            Set<File> testTaskInputFiles = proguardTask.inputs.files.files
+//            Set<File> testTaskOutputFiles = proguardTask.inputs.files.files
+//
+//            project.logger.error "Name:transformClassesAndResourcesWithProguardFor=====>${proguardTask.name} input"
+//            testTaskInputFiles.each { inputFile ->
+//                def path = inputFile.absolutePath
+//                project.logger.error "inputFilePath = $path"
+//            }
+//
+//            project.logger.error "Name:transformClassesAndResourcesWithProguardFor=====>${proguardTask.name} output"
+//            testTaskOutputFiles.each { outputFile ->
+//                def path = outputFile.absolutePath
+//                project.logger.error "outputFilePath = $path"
+//            }
+//        }
+//
+//
+//    }
+
 }

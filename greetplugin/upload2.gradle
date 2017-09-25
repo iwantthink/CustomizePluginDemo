@@ -1,15 +1,22 @@
-apply plugin:'maven'
+apply plugin: 'maven'
 
 repositories {
     mavenCentral()
 }
-group='com.hypers'
+
+group='com.hyper'
 version='1.0.0'
 
 uploadArchives {
     repositories {
         mavenDeployer {
             repository(url: uri('../repo'))
+            pom.project {
+                groupId project.group
+                artifactId "GreetPlugin"
+                version project.version
+                description project.description ?: ''
+            }
         }
     }
 }
