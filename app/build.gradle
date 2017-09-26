@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.hypers.Greetplugin'
+//apply plugin: 'com.hypers.Greetplugin'
 
 buildscript {
     repositories {
@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.hypers:GreetingPlugin:0.3' //添加依赖
+        classpath 'com.hypers:GreetingPlugin:0.1' //添加依赖
     }
 
 }
@@ -23,11 +23,11 @@ repositories {
 
 }
 
-RYAN {
-    excludeClass = [1, 2, 3]
-    includePkg = [4, 5, 6]
-    oldDir = 'xx/xx/xx'
-}
+//RYAN {
+//    excludeClass = ["Test.class","App.class"]
+//    includePkg = ["com.hmt.analytics.customizeplugin", "com/xxxx.xxx.xxx"]
+//    oldDir = 'xx/xx/xx'
+//}
 
 //books {
 //    quickStart {
@@ -110,8 +110,6 @@ task getReleasePsw << {
         }
     }
 }
-
-
 
 tasks.getByName("assemble") {
     it.doLast {
