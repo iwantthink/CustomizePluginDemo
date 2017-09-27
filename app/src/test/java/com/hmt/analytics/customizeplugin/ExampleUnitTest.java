@@ -27,6 +27,17 @@ public class ExampleUnitTest {
         assertEquals(4, 2 + 2);
     }
 
+    @Test
+    public void runSplit() {
+        File srcFile = new File("E:\\github\\CustomizePluginDemo\\app\\src\\main\\assets\\Test.class");
+        System.out.println(srcFile.getAbsolutePath());
+        System.out.println("src\\main");
+        String[] strings = srcFile.getAbsolutePath().split("src\\\\main");
+        System.out.println(strings.length);
+        System.out.println(strings[1]);
+
+    }
+
 
     @Test
     public void runAsm() throws Exception {

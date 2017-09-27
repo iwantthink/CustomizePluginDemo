@@ -4,6 +4,7 @@ import com.android.build.api.transform.*
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
 import com.android.build.gradle.internal.pipeline.TransformManager
+import groovy.io.FileType
 import org.apache.commons.codec.digest.DigestUtils
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Plugin
@@ -45,9 +46,9 @@ public class MyExtension {
 
 
 class MyTransform extends Transform {
-    boolean debug = true;
+    boolean debug = true
     Project mProject
-    MyExtension mExtension;
+    MyExtension mExtension
 
     public MyTransform(Project project) {
         mProject = project;
@@ -72,7 +73,7 @@ class MyTransform extends Transform {
 
     @Override
     boolean isIncremental() {
-        return true
+        return false
     }
 
 //    @Override
@@ -86,20 +87,40 @@ class MyTransform extends Transform {
         int i = 0;
         transformInvocation.inputs.each { TransformInput transformInput ->
             log("transformInput ${i++}")
-            log("directoryInputs ========================================")
+            log("directoryInputs")
             transformInput.directoryInputs.findAll {
                 DirectoryInput directoryInput ->
                     File dest = transformInvocation.outputProvider.getContentLocation(
                             directoryInput.name, directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY
                     )
-                    String buildTypes = directoryInput.file.name
-                    String productFlavors = directoryInput.file.parentFile.name
-                    traverseFolder(directoryInput.file)
-                    log "Copying \n${directoryInput.name} \nto \n${dest.absolutePath}"
+                    HashMap<String, File> modifyMap = new HashMap<>();
+                    logW("directoryInput path = $directoryInput.file.absolutePath")
+                    directoryInput.file.traverse(type: FileType.FILES, nameFilter: ~/.*\.class/) { File classFile ->
+                        boolean needModify = filterFile(classFile)
+                        if (needModify) {
+                            try {
+                                File modifiedFile = Inject.injectClass(directoryInput.file, classFile, transformInvocation.context)
+                                modifyMap.put(classFile.absolutePath.replace(directoryInput.file.absolutePath, ""), modifiedFile)
+                            } catch (Exception e) {
+                                logW(e.message)
+                            }
+                            logW("over")
+                        }
+                    }
+                    logW("dest.absolute = $dest.absolutePath")
                     FileUtils.copyDirectory(directoryInput.file, dest);
+                    modifyMap.each {
+                        logW("key = $it.key")
+                        logW("value = $it.value.absolutePath")
+                        File targetFile = new File(dest.absolutePath + "\\$it.key")
+                        if (targetFile.exists()) {
+                            targetFile.delete()
+                        }
+                        FileUtils.copyFile(it.value, targetFile)
+                    }
             }
 
-            log("jarInputs ========================================")
+            log("jarInputs")
             transformInput.jarInputs.findAll { JarInput jarInput ->
                 String destName = jarInput.name
                 def hexName = DigestUtils.md5Hex(jarInput.file.absolutePath)
@@ -122,40 +143,49 @@ class MyTransform extends Transform {
         }
     }
 
-    def traverseFolder(File rooFile) {
-        log("rootFile.name = $rooFile.name")
-        if (rooFile != null && rooFile.exists()) {
-            File[] files = rooFile.listFiles();
-            if (files != null && files.length != 0) {
-                files.each { File file ->
-                    logW("file path = $file.absolutePath")
-                    if (file.isDirectory()) {
-                        log("<$file.name> is directory")
-                        traverseFolder(file)
-                    } else {
-                        log("<$file.name> is file")
-                        boolean needFilter = filterFile(file)
-                        logW('file name = ' + file.name)
-                        logW("needFilter = $needFilter")
-                        if (needFilter) {
-                            try {
-                                Inject.injectClass(file.absolutePath, file.name, file.absolutePath.replace("\\$file.name", ""))
-                            } catch (Exception e) {
-                                logW("Exception = $e.getMessage()")
-                            }
-
-                        }
-                    }
-                }
-            } else {
-                log('files is empty')
-            }
-        }
-    }
+//    def traverseFolder(File rooFile, String buildTypes, String productFlavors, String patchDir) {
+//        log("rootFile.name = $rooFile.name")
+//        if (rooFile != null && rooFile.exists()) {
+//            File[] files = rooFile.listFiles();
+//            if (files != null && files.length != 0) {
+//                files.each { File file ->
+//                    logW("file path = $file.absolutePath")
+//                    if (file.isDirectory()) {
+//                        log("<$file.name> is directory")
+//                        traverseFolder(file, buildTypes, productFlavors, patchDir)
+//                    } else {
+//                        log("<$file.name> is file")
+//                        boolean needModify = filterFile(file)
+//                        logW('file name = ' + file.name)
+//                        logW("needModify = $needModify")
+//                        if (needModify) {
+//                            try {
+//                                String splitStr = "$productFlavors\\\\$buildTypes\\\\"
+//                                def classFile = file.absolutePath.split(splitStr)[1]
+//                                logW("buildTypes = $buildTypes")
+//                                logW("productFlavors = $productFlavors")
+//                                logW("classFIle = $classFile")
+//                                logW("patchDir = $patchDir")
+//                                def outputFile = new File("${patchDir}\\${classFile}")
+//                                outputFile.getParentFile().mkdirs()
+//                                logW("outputFile = $outputFile.absolutePath")
+//
+//                                Inject.injectClass(file.absolutePath, outputFile)
+//                            } catch (Exception e) {
+//                                logW("Exception = $e.message")
+//                            }
+//
+//                        }
+//                    }
+//                }
+//            } else {
+//                log('files is empty')
+//            }
+//        }
+//    }
 
     boolean filterFile(File file) {
         def needDeal = false
-        log("file.absolutePath = $file.absolutePath")
         mExtension.includePkg.each { String item ->
             log("includePkg = $item")
             def replacedPath = file.absolutePath.replace("\\$file.name", "")

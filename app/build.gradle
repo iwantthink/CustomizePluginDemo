@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'com.hypers.Greetplugin'
+apply plugin: 'com.hypers.Greetplugin'
 
 buildscript {
     repositories {
@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.hypers:GreetingPlugin:0.1' //添加依赖
+        classpath 'com.hypers:GreetingPlugin:3' //添加依赖
     }
 
 }
@@ -23,11 +23,11 @@ repositories {
 
 }
 
-//RYAN {
-//    excludeClass = ["Test.class","App.class"]
-//    includePkg = ["com.hmt.analytics.customizeplugin", "com/xxxx.xxx.xxx"]
-//    oldDir = 'xx/xx/xx'
-//}
+RYAN {
+    excludeClass = ["Test.class", "App.class"]
+    includePkg = ["com.hmt.analytics.customizeplugin"]
+    oldDir = 'xx/xx/xx'
+}
 
 //books {
 //    quickStart {
@@ -53,7 +53,6 @@ repositories {
 //    address 'shanghai'
 //}
 
-
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
@@ -66,21 +65,26 @@ android {
 
     defaultConfig {
         applicationId "com.hmt.analytics.customizeplugin"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled false
+        multiDexEnabled true
     }
     buildTypes {
         release {
-            minifyEnabled true
+//            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            minifyEnabled false
+//            minifyEnabled false
         }
+    }
+
+    dexOptions {
+        jumboMode true
+        javaMaxHeapSize "4g"
     }
 
 }
@@ -93,7 +97,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
-    compile 'org.ow2.asm:asm-all:5.2'
+
 
 }
 
