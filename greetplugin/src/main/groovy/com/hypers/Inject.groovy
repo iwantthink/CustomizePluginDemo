@@ -8,9 +8,14 @@ import org.objectweb.asm.commons.AdviceAdapter
 public class Inject {
 
     static File injectClass(File dir, File inputFile, Context context) {
+        System.out.println("dir.absolutePath = $dir.absolutePath")
+        // \app\build\intermediates\classes\apple\release
+        //通常buildTypes 都会存在。。
+        //如果productFlavors不存在的时候..那这个值就是classes
         String buildTypes = dir.name
         String productFlavors = dir.parentFile.name
-        File outputDir = new File(context.temporaryDir, "$productFlavors\\$buildTypes")
+        File outputDir = new File(context.temporaryDir.getParentFile(),
+                "$productFlavors\\$buildTypes")
         if (!outputDir.exists()) {
             outputDir.mkdirs()
         }

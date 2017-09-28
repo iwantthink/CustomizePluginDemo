@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.hypers:GreetingPlugin:3' //添加依赖
+        classpath 'com.hypers:GreetingPlugin:22' //添加依赖
     }
 
 }
@@ -26,7 +26,7 @@ repositories {
 RYAN {
     excludeClass = ["Test.class", "App.class"]
     includePkg = ["com.hmt.analytics.customizeplugin"]
-    oldDir = 'xx/xx/xx'
+    oldDir = "$project.buildDir/outputs/ryan"
 }
 
 //books {
@@ -74,11 +74,20 @@ android {
     }
     buildTypes {
         release {
-//            minifyEnabled true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-//            minifyEnabled false
+            minifyEnabled false
+        }
+    }
+
+    productFlavors {
+        apple {
+            versionNameSuffix '.apple'
+        }
+        orange {
+            versionNameSuffix '.orange'
         }
     }
 
