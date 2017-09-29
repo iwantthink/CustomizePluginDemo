@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.hypers:GreetingPlugin:22' //添加依赖
+        classpath 'com.hypers:GreetingPlugin:28' //添加依赖
     }
 
 }
