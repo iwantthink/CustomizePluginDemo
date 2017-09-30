@@ -32,6 +32,7 @@ public class RyanInjectPlugin implements Plugin<Project> {
                 copyMappingFile(project, item)
             }
         }
+        logE("====================apply==========================")
         Task ryanDex = project.tasks.create('ryanDex') {
             group 'ryan'
             description 'dex specified class'
@@ -91,7 +92,9 @@ public class RyanInjectPlugin implements Plugin<Project> {
 //        def i = 1
         def changedFlavorsAndTypes = ""
         arrays.each {
-            changedFlavorsAndTypes += it.replace(it.substring(0, 1), it.substring(0, 1).toUpperCase())
+//            changedFlavorsAndTypes += it.replace(it.substring(0, 1), it.substring(0, 1).toUpperCase())
+            changedFlavorsAndTypes += it.capitalize()
+            logE("capitalize = $changedFlavorsAndTypes")
 //            partMappingPath += it
 //            if (i < arrays.length) {
 //                partMappingPath += "/"
@@ -137,7 +140,7 @@ public class RyanInjectPlugin implements Plugin<Project> {
         //proguardTask 存在一个方法获取transform
         ProGuardTransform proGuardTransform = proguardTask.getTransform()
         //获取所有的混淆的配置文件。。 这个方法是ProguardTRansform 的接口中的方法
-        //代码好像不提示。。。 但是 我打出来之后是可以使用
+        //代码好像不提示。。。 但是打出来之后是可以使用
         proGuardTransform.getAllConfigurationFiles()
     }
 
@@ -302,7 +305,6 @@ public class MyExtension {
 
     }
 }
-
 
 class MyTransform extends Transform {
     String TAG = com.hypers.MyTransform.class.getSimpleName()

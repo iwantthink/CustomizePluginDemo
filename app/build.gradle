@@ -1,3 +1,5 @@
+import com.android.build.gradle.AppExtension
+
 apply plugin: 'com.android.application'
 apply plugin: 'com.hypers.Greetplugin'
 
@@ -10,7 +12,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.hypers:GreetingPlugin:28' //添加依赖
+        classpath 'com.hypers:GreetingPlugin:29' //添加依赖
     }
 
 }
@@ -24,7 +26,7 @@ repositories {
 }
 
 RYAN {
-    excludeClass = ["Test.class", "App.class"]
+    excludeClass = ["Test.class"]
     includePkg = ["com.hmt.analytics.customizeplugin"]
     oldDir = "$project.buildDir/outputs/ryan"
 }
@@ -158,7 +160,12 @@ project.afterEvaluate {
 //            }
 //        }
 //    }
-
+    def app = project.extensions.getByName('android') as AppExtension
+    java.lang.System.err.println("app.compileSdkVersion = $app.compileSdkVersion")
+    project.extensions.getByType(AppExtension).applicationVariants.findAll {
+        System.err.println("application variants = $it.name")
+    }
+    project.logger.error "hello".capitalize()
     project.logger.error '-----------------------------------------------'
 
 //    project.android.applicationVariants.findAll { variant ->
