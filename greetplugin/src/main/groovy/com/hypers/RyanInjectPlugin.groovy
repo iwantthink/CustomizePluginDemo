@@ -214,9 +214,9 @@ public class RyanInjectPlugin implements Plugin<Project> {
                         ClassPathEntry classPathEntry = new ClassPathEntry(classDir, false)
                         configuration.programJars.add(classPathEntry)
 
-                        //定义混淆输出文件
+                        //定义混淆输出路径
                         File proguardOutPut = new File("$project.buildDir.absolutePath/tmp/$item/proguard")
-                        //第二个参数表示是输出文件
+                        //第二个参数表示是输出
                         ClassPathEntry classPathEntryOut = new ClassPathEntry(proguardOutPut, true)
                         configuration.programJars.add(classPathEntryOut)
 
