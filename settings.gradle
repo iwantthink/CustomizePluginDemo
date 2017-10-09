@@ -1,7 +1,4 @@
-{
-    ->
-    println "i am in settings.gradle"
-}()
+println '===============settings.gradle================='
 println "root project = " + getRootProject().hashCode()
 println "in setting,gradle id is:" + getGradle().hashCode()
 //哪个目录存储的gradle 可执行程序
@@ -9,6 +6,8 @@ println "in setting,gradleHomeDir is:" + getGradle().getGradleHomeDir()
 //gradle 自己设置的目录，存储了一些配置文件，以及编译过程中的缓存文件，生成的类文件，编译中依赖的插件等
 println "in setting,gradleUserHomeDir is:" + getGradle().getGradleUserHomeDir()
 println "in setting,parent is:" + getGradle().getParent()
+println '===============settings.gradle================='
+
 
 def initExt() {
     //从local.properties 中获取属性 转换成对象
@@ -20,9 +19,10 @@ def initExt() {
     gradle.ext.api = properties.getProperty('sdk.dir')
     gradle.ext.hello = properties.getProperty('sdk.dir')
 }
+
 initExt()
 //这样定义 应该是只能在当前project 中使用
-ext{
+ext {
     hi = 'hihihihihihi'
 }
 println hi
