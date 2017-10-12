@@ -1,7 +1,7 @@
 import com.android.build.gradle.AppExtension
 
 apply plugin: 'com.android.application'
-apply plugin: 'com.hypers.Greetplugin'
+//apply plugin: 'com.hypers.Greetplugin'
 
 buildscript {
     repositories {
@@ -12,7 +12,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.hypers:GreetingPlugin:29' //添加依赖
+//        classpath 'com.hypers:GreetingPlugin:29' //添加依赖
     }
 
 }
@@ -25,11 +25,11 @@ repositories {
 
 }
 
-RYAN {
-    excludeClass = ["Test.class"]
-    includePkg = ["com.hmt.analytics.customizeplugin"]
-    oldDir = "$project.buildDir/outputs/ryan"
-}
+//RYAN {
+//    excludeClass = ["Test.class"]
+//    includePkg = ["com.hmt.analytics.customizeplugin"]
+//    oldDir = "$project.buildDir/outputs/ryan"
+//}
 
 //books {
 //    quickStart {
