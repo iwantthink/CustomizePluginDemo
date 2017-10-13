@@ -2,8 +2,6 @@ package com.hmt.analytics.customizeplugin;
 
 import org.junit.Test;
 
-import static junit.framework.Assert.assertEquals;
-
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -12,7 +10,6 @@ import static junit.framework.Assert.assertEquals;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
     }
 }
 

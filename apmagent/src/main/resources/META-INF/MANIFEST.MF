@@ -1,0 +1,6 @@
+Manifest-Version: 1.1
+Premain-Class: com.hypers.TransformAgent
+Agent-Class: com.hypers.TransformAgent
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
+
