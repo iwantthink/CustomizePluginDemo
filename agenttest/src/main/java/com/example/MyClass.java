@@ -2,7 +2,6 @@ package com.example;
 
 import com.sun.tools.attach.VirtualMachine;
 
-import java.lang.management.ManagementFactory;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -12,11 +11,12 @@ public class MyClass {
         System.out.println("what do u need ?");//屏幕提示输入
         String input;
         while (!(input = s.nextLine()).equals("gg")) {
-            if (input.equals("agent")) {
+            if (input.startsWith("agent")) {
                 try {
                     // 在windows上，获取到得name格式为 1234@userName
                     // 1234为PID，@为分隔符，userName为当前用户
-                    String pid = ManagementFactory.getRuntimeMXBean().getName();
+//                    String pid =d ManagementFactory.getRuntimeMXBean().getName();
+                    String pid = input.split("-")[1];
                     int indexOf = pid.indexOf('@');
                     if (indexOf > 0) {
                         pid = pid.substring(0, indexOf);
@@ -30,10 +30,10 @@ public class MyClass {
                     Properties props = vm.getSystemProperties();
 
                     // construct path to management agent
-                    String agent = "E:\\github\\CustomizePluginDemo\\agenttest\\libs\\apmagent.jar";
+                    String agent = "C:\\Users\\Administrator\\Documents\\CustomizePluginDemo\\agenttest\\libs\\apmagent.jar";
 
                     // load agent into target VM
-                    vm.loadAgent(agent, null);
+                    vm.loadAgent(agent);
 
                     // detach
                     vm.detach();
@@ -41,12 +41,12 @@ public class MyClass {
                     e.printStackTrace();
                 }
             } else {
-                test();
+                new MyClass().test();
             }
         }
     }
 
-    public static void test() {
-        System.out.println("i am method test");
+    public void test() {
+        System.out.println("test");
     }
 }

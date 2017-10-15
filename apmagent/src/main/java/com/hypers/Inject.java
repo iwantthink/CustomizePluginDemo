@@ -12,6 +12,7 @@ import java.io.IOException;
 public class Inject {
 
     public static byte[] injectTimeWhenInit(byte[] inpuByte) throws IOException {
+        System.out.println("enter injectTimeWHEN init");
         ClassReader cr = new ClassReader(inpuByte);
         ClassWriter cw = new ClassWriter(cr, 1);
         ClassVisitor cv = new ClassVisitor(Opcodes.ASM4, cw) {

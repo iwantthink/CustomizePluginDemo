@@ -1,6 +1,7 @@
 package com.hypers;
 
 import java.lang.instrument.Instrumentation;
+import java.lang.instrument.UnmodifiableClassException;
 
 /**
  * Created by renbo on 2017/10/12.
@@ -14,8 +15,13 @@ public class TransformAgent {
         inst.addTransformer(new MyClassTransformer());
     }
 
-    public static void agentmain(String args, Instrumentation inst) {
+    public static void agentmain(String args, Instrumentation inst) throws UnmodifiableClassException {
         System.out.println("----agentmain----");
-        inst.addTransformer(new MyClassTransformer());
+        inst.addTransformer(new MyClassTransformer(), true);
+        Class[] classes = inst.getAllLoadedClasses();
+        for (Class cls : classes) {
+            System.out.println("cls.getName = " + cls.getName());
+        }
+//        inst.retransformClasses(MyClass.class);
     }
 }
