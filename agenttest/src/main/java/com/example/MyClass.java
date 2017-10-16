@@ -7,15 +7,13 @@ import java.util.Scanner;
 
 public class MyClass {
     public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);      //new 一个Scanner对象
-        System.out.println("what do u need ?");//屏幕提示输入
+        Scanner s = new Scanner(System.in);
+        System.out.println("what do u need ?");
         String input;
         while (!(input = s.nextLine()).equals("gg")) {
             if (input.startsWith("agent")) {
                 try {
-                    // 在windows上，获取到得name格式为 1234@userName
-                    // 1234为PID，@为分隔符，userName为当前用户
-//                    String pid =d ManagementFactory.getRuntimeMXBean().getName();
+
                     String pid = input.split("-")[1];
                     int indexOf = pid.indexOf('@');
                     if (indexOf > 0) {
