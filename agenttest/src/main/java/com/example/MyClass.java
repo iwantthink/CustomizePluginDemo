@@ -2,6 +2,7 @@ package com.example;
 
 import com.sun.tools.attach.VirtualMachine;
 
+import java.lang.reflect.Field;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -13,6 +14,12 @@ public class MyClass {
         while (!(input = s.nextLine()).equals("gg")) {
             if (input.startsWith("agent")) {
                 try {
+                    System.setProperty("java.library.path",
+                            "C:\\Program Files\\Java\\jdk1.8.0_112\\jre\\bin");
+                    Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
+                    fieldSysPath.setAccessible(true);
+                    fieldSysPath.set(null, null);
+
 
                     String pid = input.split("-")[1];
                     int indexOf = pid.indexOf('@');

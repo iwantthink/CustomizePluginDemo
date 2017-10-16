@@ -84,14 +84,14 @@ android {
         }
     }
 
-    productFlavors {
-        apple {
-            versionNameSuffix '.apple'
-        }
-        orange {
-            versionNameSuffix '.orange'
-        }
-    }
+//    productFlavors {
+//        apple {
+//            versionNameSuffix '.apple'
+//        }
+//        orange {
+//            versionNameSuffix '.orange'
+//        }
+//    }
 
     dexOptions {
         jumboMode true
