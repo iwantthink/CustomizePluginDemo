@@ -15,3 +15,13 @@ jar {
         attributes 'Class-Path': 'asm-all-5.2.jar'
     }
 }
+
+task makeJar(type: Jar) {
+    manifest{
+        from('/src/main/resources/META-INF/MANIFEST.MF')
+    }
+    baseName = 'apmagent'
+    from zipTree('/libs/asm-all-5.2.jar')
+    from '/build/classes/java/main'
+    into '/'
+}

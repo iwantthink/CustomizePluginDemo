@@ -6,7 +6,7 @@ import java.lang.management.ManagementFactory;
  * Created by Administrator on 2017/10/15.
  */
 
-public class AgentThread extends Thread {
+public class AgentThread {
     public static void main(String[] args) throws InterruptedException {
         String pid = ManagementFactory.getRuntimeMXBean().getName();
         int indexOf = pid.indexOf('@');
@@ -16,7 +16,7 @@ public class AgentThread extends Thread {
         System.out.println("pid = " + pid);
         new ModifedClass().test();
         while (true) {
-            Thread.sleep(1000);
+            Thread.sleep(5000);
             new ModifedClass().test();
         }
     }

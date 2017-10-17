@@ -20,14 +20,14 @@ public class TransformAgent {
         inst.addTransformer(new MyClassTransformer(), true);
         System.out.println("----agentmain step2---- ,args = " + args);
 
-        Class[] classes = inst.getAllLoadedClasses();
-        for (Class cls : classes) {
-            if (cls.getName().startsWith("ModifedClass")) {
-                System.out.println("AgentMain::agentmain, transform class: "
-                        + cls.getName());
-                inst.retransformClasses(cls);
-            }
-        }
+//        Class[] classes = inst.getAllLoadedClasses();
+//        for (Class cls : classes) {
+//            if (cls.getName().startsWith("ModifedClass")) {
+//                System.out.println("AgentMain::agentmain, transform class: "
+//                        + cls.getName());
+//                inst.retransformClasses(cls);
+//            }
+//        }
         System.out.println("----agentmain step3----");
 //        try {
 //            System.out.println("----start redefine----");
