@@ -1,7 +1,19 @@
 package com.hypers;
 
+import com.hypers.invocation.InvocationDispatcher;
+import com.hypers.utils.ConsoleLog;
+import com.hypers.utils.FileLog;
+import com.hypers.utils.Log;
+
 import java.lang.instrument.Instrumentation;
-import java.lang.instrument.UnmodifiableClassException;
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * Created by renbo on 2017/10/12.
@@ -9,47 +21,64 @@ import java.lang.instrument.UnmodifiableClassException;
 
 public class TransformAgent {
 
+    public static final Class LOGGER = Logger.class;
+    public static final Set<String> dx = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(new String[]{"dx", "dx.bat"})));
+    public static final Set<String> java = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(new String[]{"java", "java.exe"})));
+
+
     //1.5++
     public static void premain(String args, Instrumentation inst) {
-        System.out.println("----premain----");
-        inst.addTransformer(new MyClassTransformer());
+        agentmain(args, inst);
     }
 
-    public static void agentmain(String args, Instrumentation inst) throws UnmodifiableClassException, ClassNotFoundException {
-        System.out.println("----agentmain step1----");
-        inst.addTransformer(new MyClassTransformer(), true);
-        System.out.println("----agentmain step2---- ,args = " + args);
-
-//        Class[] classes = inst.getAllLoadedClasses();
-//        for (Class cls : classes) {
-//            if (cls.getName().startsWith("ModifedClass")) {
-//                System.out.println("AgentMain::agentmain, transform class: "
-//                        + cls.getName());
-//                inst.retransformClasses(cls);
-//            }
-//        }
-        System.out.println("----agentmain step3----");
-//        try {
-//            System.out.println("----start redefine----");
-//            File f = new File(args);
-//            byte[] reporterClassFile = new byte[(int) f.length()];
-//            DataInputStream in = new DataInputStream(new FileInputStream(f));
-//            in.readFully(reporterClassFile);
-//            in.close();
-//            ClassDefinition reporterDef =
-//                    new ClassDefinition(Class.forName("ModifedClass"), reporterClassFile);
-//            inst.redefineClasses(reporterDef);
-//            System.out.println("----end redefine----");
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+    public static void agentmain(String args, Instrumentation inst) {
+        Map<String, String> params = Collections.emptyMap();
+        params = parseArguments(args);
+        String logFilePath = params.get("logFilePath");
+        System.out.println("logFilePath = " + logFilePath);
+        com.hypers.utils.Log log = logFilePath == null ? new ConsoleLog() : new FileLog(logFilePath);
+        createInvocationDispatcher(log);
+        inst.addTransformer(new MyClassTransformer(log), true);
 
 
-//        Class[] classes = inst.getAllLoadedClasses();
-//        for (Class cls : classes) {
-//            System.out.println("cls.getName = " + cls.getName());
-//        }
-//        inst.retransformClasses(MyClass.class);
+    }
+
+    private static void createInvocationDispatcher(Log log) {
+        try {
+            Field treeLock = LOGGER.getDeclaredField("treeLock");
+            treeLock.setAccessible(true);
+            Field modifiers = Field.class.getDeclaredField("modifiers");
+            modifiers.setAccessible(true);
+            modifiers.setInt(treeLock, treeLock.getModifiers() & 0xFFFFFFEF);
+            if (!(treeLock.get(null) instanceof InvocationDispatcher)) {
+                treeLock.set(null, new InvocationDispatcher(log));
+            }
+        } catch (Exception e) {
+            log.e(e.getMessage());
+        }
+    }
+
+    /**
+     * param passed when loadAgent
+     * xxx=xxx;yyy=yyy;
+     *
+     * @param args
+     * @return
+     */
+    private static Map<String, String> parseArguments(String args) {
+        if (args == null) {
+            return Collections.emptyMap();
+        }
+        HashMap<String, String> result = new HashMap<>();
+        String[] array = args.split(";");
+        for (String s : array) {
+            String[] strs = s.split("=");
+            if (strs.length != 2) {
+                throw new IllegalArgumentException("wrong args");
+            }
+            System.out.println("parseArguments --- key = " + strs[0] + ",value = " + strs[1]);
+            result.put(strs[0], strs[1]);
+        }
+        return result;
     }
 }

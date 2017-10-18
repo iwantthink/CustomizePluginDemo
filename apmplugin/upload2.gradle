@@ -1,0 +1,22 @@
+apply plugin: 'maven'
+
+repositories {
+    mavenCentral()
+}
+
+group = 'com.hypers'
+version = '7'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../repo'))
+            pom.project {
+                groupId project.group
+                artifactId "APMPlugin"
+                version project.version
+                description project.description ?: ''
+            }
+        }
+    }
+}

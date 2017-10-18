@@ -1,4 +1,5 @@
 apply plugin: 'groovy'
+apply from: 'upload2.gradle'
 
 repositories {
     mavenLocal()
@@ -10,9 +11,26 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile gradleApi() //gradle sdk
     compile localGroovy()//groovy sdk
+    compile 'org.codehaus.groovy:groovy:2.3.7'
+
     //gradle-api-2.3.3
 //    compile 'com.android.tools.build:gradle-api:2.3.3'
     //lot of jar...
 //    compile 'com.android.tools.build:gradle:2.3.0'
 }
 
+task makeJar(type: org.gradle.api.tasks.bundling.Jar) {
+
+    //指定生成的jar名
+    baseName 'HMTPlugin'
+    //从哪里打包class文件
+//    from('build/intermediates/bundles/release/')
+    from('build/classes/main/')
+    //打包到jar后的目录结构
+    into('/')
+
+    //去掉不需要打包的目录和文件
+    exclude('**/BuildConfig.class', '**/R.class')
+    //去掉R$开头的文件
+    exclude { it.name.startsWith('R$'); }
+}

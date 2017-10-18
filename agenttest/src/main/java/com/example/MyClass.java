@@ -35,7 +35,7 @@ public class MyClass {
                     Properties props = vm.getSystemProperties();
 
                     // construct path to management agent
-                    String agent = "C:\\Users\\Administrator\\Documents\\CustomizePluginDemo\\agenttest\\libs\\apmagent.jar";
+                    String agent = "C:\\Users\\Administrator\\Documents\\CustomizePluginDemo\\agenttest\\libs\\apmagent1.jar";
 
                     // load agent into target VM
                     vm.loadAgent(agent);
