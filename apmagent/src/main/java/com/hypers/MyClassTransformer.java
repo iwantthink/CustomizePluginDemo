@@ -44,7 +44,7 @@ public class MyClassTransformer implements ClassFileTransformer {
         if (mLog instanceof FileLog) {
             ((FileLog) mLog).close();
         }
-        return bytes;
+        return null;
     }
 
 //    public byte[] injectTimeWhenInit(byte[] inpuByte) throws IOException {

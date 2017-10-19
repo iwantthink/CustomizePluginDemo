@@ -17,7 +17,7 @@ jar {
 }
 
 task makeJar(type: Jar) {
-    manifest{
+    manifest {
         from('/src/main/resources/META-INF/MANIFEST.MF')
     }
     baseName = 'apmagent'

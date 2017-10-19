@@ -14,8 +14,8 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.hypers:APMPlugin:7'
-        classpath fileTree(dir:'libs',include:'*.jar')
+        classpath 'com.hypers:APMPlugin:1'
+        classpath fileTree(dir: 'libs', include: '*.jar')
 //        classpath 'com.hypers:GreetingPlugin:29' //添加依赖
     }
 
@@ -100,6 +100,10 @@ android {
     dexOptions {
         jumboMode true
         javaMaxHeapSize "4g"
+    }
+
+    lintOptions {
+        abortOnError false
     }
 
 }
