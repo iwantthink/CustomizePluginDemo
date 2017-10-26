@@ -1,7 +1,6 @@
 package com.hypers;
 
 import com.hypers.classvisitor.ClassVisitorCreator;
-import com.hypers.utils.FileLog;
 import com.hypers.utils.Log;
 
 import org.objectweb.asm.ClassReader;
@@ -9,7 +8,6 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 
 import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
 import java.util.HashMap;
 
@@ -30,7 +28,7 @@ public class MyClassTransformer implements ClassFileTransformer {
 
     @Override
     public byte[] transform(ClassLoader classLoader, String className,
-                            Class<?> aClass, ProtectionDomain protectionDomain, byte[] bytes) throws IllegalClassFormatException {
+                            Class<?> aClass, ProtectionDomain protectionDomain, byte[] bytes) {
         mLog.d("MyClassTransformer --- transform --- className = " + className);
         ClassVisitorCreator creator = mClassVisitorCreator.get(className);
         if (null != creator) {
@@ -41,9 +39,10 @@ public class MyClassTransformer implements ClassFileTransformer {
             cr.accept(cv, ClassReader.SKIP_FRAMES);
             return bytes;
         }
-        if (mLog instanceof FileLog) {
-            ((FileLog) mLog).close();
-        }
+//        if (mLog instanceof FileLog) {
+//            mLog.d(" log is closed");
+////            ((FileLog) mLog).close();
+//        }
         return null;
     }
 

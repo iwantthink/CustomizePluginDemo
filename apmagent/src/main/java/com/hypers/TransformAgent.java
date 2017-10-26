@@ -28,18 +28,18 @@ public class TransformAgent {
 
     //1.5++
     public static void premain(String args, Instrumentation inst) {
-        System.out.println("premain");
+        System.out.println("========premain=========");
         agentmain(args, inst);
     }
 
     public static void agentmain(String args, Instrumentation inst) {
-        System.out.println("agentmain");
+        System.out.println("========agentmain=========");
         Map<String, String> params = Collections.emptyMap();
         params = parseArguments(args);
         String logFilePath = params.get("logFilePath");
-        System.out.println("logFilePath = " + logFilePath);
         com.hypers.utils.Log log = logFilePath == null ? new ConsoleLog() : new FileLog(logFilePath);
-        createInvocationDispatcher(log);
+        log.d("logFilePath = " + logFilePath);
+//        createInvocationDispatcher(log);
         inst.addTransformer(new MyClassTransformer(log), true);
     }
 

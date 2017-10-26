@@ -1,4 +1,4 @@
-apply 'from':rootDir.getAbsolutePath()+"/util.gradle"
+apply 'from': rootDir.getAbsolutePath() + "/util.gradle"
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 gradle.beforeProject {
     println "before project $it"
@@ -6,12 +6,14 @@ gradle.beforeProject {
 
 buildscript {
     repositories {
+        google()
         jcenter()
         //添加国内镜像
-        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public'}
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        //依赖于google仓库
+        classpath 'com.android.tools.build:gradle:3.0.0'
 //        classpath group: 'org.gradle', name: 'customPlugin',
 //                version: '1.0-SNAPSHOT'
         // NOTE: Do not place your application dependencies here; they belong
@@ -22,7 +24,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public'}
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
     }
 
 }

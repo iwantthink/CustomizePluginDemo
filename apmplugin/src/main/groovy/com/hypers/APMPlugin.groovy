@@ -19,6 +19,8 @@ class APMPlugin implements Plugin<Project> {
             jarFilePath = new File(jarFilePath).getCanonicalPath()
             VirtualMachine vm = VirtualMachine.attach(pid)
             System.out.println("APMPlugin start ")
+            System.out.println("jarFilePath = " + jarFilePath)
+            System.out.println("file path = "+project.buildFile.absolutePath)
             vm.loadAgent(jarFilePath, "logFilePath=C:\\Users\\renbo\\Desktop\\java\\haha.txt;")
             vm.detach()
         } catch (Exception e) {

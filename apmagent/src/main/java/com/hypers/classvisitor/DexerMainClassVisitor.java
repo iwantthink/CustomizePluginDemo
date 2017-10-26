@@ -21,7 +21,7 @@ public class DexerMainClassVisitor extends ClassVisitor {
 
     @Override
     public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
-        mLog.d("DexerMainClassVisitor --- visitMethod --- name = " + name);
+        mLog.d("DexerMainClassVisitor---visitMethod----name = " + name);
         return super.visitMethod(access, name, desc, signature, exceptions);
     }
 }

@@ -26,5 +26,4 @@ ext {
     hi = 'hihihihihihi'
 }
 println hi
-include ':app', ':greetplugin', ':apmagent', ':agenttest'
-//':apmplugin'
+include ':app', ':greetplugin', ':apmagent', ':agenttest', ':apmplugin'

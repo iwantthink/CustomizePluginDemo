@@ -22,7 +22,7 @@ public class ProcessBuilderClassVisitor extends ClassVisitor {
     @Override
     public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
         MethodVisitor methodVisitor = super.visitMethod(access, name, desc, signature, exceptions);
-        mLog.d("ProcessBuilderClassVisitor---MethodVisitor----name = " + name);
+        mLog.d("ProcessBuilderClassVisitor---visitMethod----name = " + name);
         return methodVisitor;
     }
 }

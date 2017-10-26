@@ -14,7 +14,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.hypers:APMPlugin:1'
+        classpath 'com.hypers:APMPlugin:2'
         classpath fileTree(dir: 'libs', include: '*.jar')
 //        classpath 'com.hypers:GreetingPlugin:29' //添加依赖
     }
@@ -27,6 +27,7 @@ repositories {
         url uri('../repo')
     }
 
+    google()
 }
 
 //RYAN {
@@ -61,7 +62,7 @@ repositories {
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    buildToolsVersion '26.0.2'
 
     sourceSets {
         main {

@@ -40,6 +40,8 @@ public class FileLog implements Log {
     }
 
     public void writeLog(String tag, String log) {
+//        mPrintWriter.write("[" + tag + "] " + log);
+//        mPrintWriter.write("\n");
         mPrintWriter.println("[" + tag + "] " + log);
         mPrintWriter.flush();
     }
